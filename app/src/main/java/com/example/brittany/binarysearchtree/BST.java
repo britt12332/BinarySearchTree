@@ -26,6 +26,7 @@ public class BST
 
    public void visitLevelOrder()
     {
+        String answer = "";
         Stack<BinaryTree> answerStack = new Stack<BinaryTree>();
         Stack<BinaryTree> contentStack = new Stack<BinaryTree>();
         Stack<BinaryTree> childStack = new Stack<BinaryTree>();
@@ -38,21 +39,32 @@ public class BST
         else
         {
                 childStack.push(this.root);
+
             while(!childStack.isEmpty() || !tempStack.isEmpty())
             {
+
                 //clear child stack by adding its children to tempStack and then popping
                 while(!childStack.isEmpty())
                 {
+                    this.root = childStack.peek();
+                    //  System.out.println("root: " + this.root.getPayload());
                   if(this.root.getLeftTree() != null)
                   {
                       tempStack.push(this.root.getLeftTree());
+                    //  System.out.println(this.root.getLeftTree().getPayload());
+
                   }
-                  if(this.root.getRightTree() != null)
-                  {
-                    tempStack.push(this.root.getRightTree());
-                  }
+                    if(this.root.getRightTree() != null)
+                    {
+                        tempStack.push(this.root.getRightTree());
+                       // System.out.println(this.root.getRightTree().getPayload());
+                    }
+
+
                     contentStack.push(childStack.peek());
                     childStack.pop();
+
+                    //System.out.println("yep in here1");
 
                    //push the left and right children of peek childStack onto tempStack
                   // pop from childStack and push onto contentStack
@@ -61,28 +73,39 @@ public class BST
                 //move contents of tempStack onto childStack in REVERSE
                 while(!tempStack.isEmpty())
                 {
+
                    childStack.push(tempStack.peek());
                     tempStack.pop();
+                 //  System.out.println("yep in here2");
                     //pop -> push onto childStack
                 }
+
+
             }
 
             //we now know that child and temp stacks are empty and all of our
             //nodes are in contentStack in REVERSE order, so we need to reverse them again
             while(!contentStack.isEmpty())
             {
+
                 answerStack.push(contentStack.peek());
                 contentStack.pop();
+                //System.out.println("yep in here3");
                 //pop -> push onto answerStack
             }
 
             //our final answer is answerStack, we can visit the nodes in pop order
             while(!answerStack.isEmpty())
             {
-               System.out.println("DISPLAY LEVEL ORDER: " + answerStack);
+                answer += " "+ answerStack.peek().getPayload();
+                answerStack.pop();
+
+               // System.out.println("yep in here4");
+               //System.out.println("DISPLAY LEVEL ORDER: " + answerStack.pop().getPayload());
 
                 //pop and display value
             }
+            System.out.println("Level-Order: " + answer);
         }
     }
 
