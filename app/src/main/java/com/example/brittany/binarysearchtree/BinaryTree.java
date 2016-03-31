@@ -1,18 +1,74 @@
 package com.example.brittany.binarysearchtree;
 
-import java.util.Stack;
-
 public class BinaryTree
 {
     private char payload;
     private BinaryTree leftTree;
     private BinaryTree rightTree;
-
+    static String outOfBalSecond = "";
     public BinaryTree(char payload)
     {
         this.payload = payload;
         this.leftTree = null;
         this.rightTree = null;
+    }
+
+    public boolean isOutOfBalance()
+    {
+        int leftDepth = this.leftTree == null?0:this.leftTree.depth();
+        int rightDepth = this.rightTree == null?0:this.rightTree.depth();
+        return Math.abs(leftDepth-rightDepth) > 1;
+    }
+
+    public String outOfBalanceSecondarily(char val)
+    {
+        //are we looking at a matching payload and are we a leaf node
+       char tempval = this.payload;
+        System.out.println("ehre " +tempval);
+
+
+        if (this.payload == val && this.leftTree == null && this.rightTree == null) {
+
+            if (val <= tempval) {
+                //System.out.println("getting in here1");
+                outOfBalSecond = "left";
+
+            } else {
+                //System.out.println("getting in here2");
+                outOfBalSecond = "right";
+
+            }
+            //  System.out.println(val);
+            //System.out.println(tempval);
+
+            //return the last turn we made
+            //HOW DO WE KNOW WHAT WAS THE LAST TURN?
+
+        }
+
+
+        if (this.leftTree != null && tempval != val)
+        {
+            this.leftTree.outOfBalanceSecondarily(tempval);
+           // tempval = this.leftTree.getPayload();
+        }
+        if (this.rightTree != null&& tempval != val) {
+
+            this.rightTree.outOfBalanceSecondarily(tempval);
+           // tempval = this.rightTree.getPayload();
+
+        }
+        //keep traversing the tree and ultimately return left or right
+
+
+            return outOfBalSecond ;
+    }
+
+    public int depth()
+    {
+        //boolean-exp?true-stmt:false-stmt
+        return 1 + Math.max((this.leftTree == null?0:this.leftTree.depth()),
+                (this.rightTree == null?0:this.rightTree.depth()));
     }
 
     public void add(char payload)
@@ -85,7 +141,6 @@ public class BinaryTree
         }
         return answer;
     }
-
 
     public char getPayload()
     {
