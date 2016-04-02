@@ -6,6 +6,10 @@ import java.util.Stack;
 public class BST
 {
     private BinaryTree root;
+    static String outOfBalanceInitial = "right";
+    static String outOfBalanceSecondarily;
+
+
 
     public BST()
     {
@@ -21,17 +25,39 @@ public class BST
     public void howAreWeOutOfBalance(char val)
     {
         //where are we out of balance initially? left or right?
-        String outOfBalanceInitial = "right";
+
         if(val <= this.root.getPayload())
         {
             outOfBalanceInitial = "left";
         }
 
         //where are we out of balance secondarily? left or right?
-        String outOfBalanceSecondarily = this.root.outOfBalanceSecondarily(val);
+         outOfBalanceSecondarily = this.root.outOfBalanceSecondarily(val, "DEFAULT TURN");
 
         //Finaly print out how we are out of balance
-        System.out.println("1st " + outOfBalanceInitial+ " 2nd " + BinaryTree.outOfBalSecond);
+        System.out.println("Out of balance: " + outOfBalanceInitial + " - " + outOfBalanceSecondarily);
+
+    }
+    public void fix (String obi, String obs)
+    {
+        System.out.println( "BEFORE TREE - "+ "ROOT " + this.root.getPayload() + " Left Child " + this.root.getLeftTree().getPayload() + " Left Child " + this.root.getRightTree().getPayload());
+        BinaryTree tempTreeHolder = this.root;
+        if(obi == "left" && obs == "left")
+        {
+            this.root = this.root.getLeftTree();
+            this.root.setRightTree(tempTreeHolder);
+            System.out.println("FIXED LEFT LEFT");
+            System.out.println("After Tree - "+"ROOT " + this.root.getPayload() + " Left Child " + this.root.getLeftTree().getPayload() + " Right Child " + this.root.getRightTree().getPayload());
+        }
+        else if(obi == "right" && obs == "right")
+        {
+            System.out.println( "BEFORE TREE - "+ "ROOT " + this.root.getPayload() + " Left Child " + this.root.getLeftTree().getPayload() + " Left Child " + this.root.getRightTree().getPayload());
+            this.root = this.root.getRightTree();
+            this.root.setLeftTree(tempTreeHolder);
+            System.out.println("FIXED Right Right");
+            System.out.println("After Tree - "+ "ROOT " + this.root.getPayload() + " Left Child " + this.root.getLeftTree().getPayload() + " Left Child " + this.root.getRightTree().getPayload());
+        }
+
     }
 
     public void add(char payload)

@@ -5,7 +5,7 @@ public class BinaryTree
     private char payload;
     private BinaryTree leftTree;
     private BinaryTree rightTree;
-    static String outOfBalSecond = "";
+
     public BinaryTree(char payload)
     {
         this.payload = payload;
@@ -20,48 +20,31 @@ public class BinaryTree
         return Math.abs(leftDepth-rightDepth) > 1;
     }
 
-    public String outOfBalanceSecondarily(char val)
+    public String outOfBalanceSecondarily(char val, String lastTurn)
     {
         //are we looking at a matching payload and are we a leaf node
-       char tempval = this.payload;
-        System.out.println("ehre " +tempval);
-
-
-        if (this.payload == val && this.leftTree == null && this.rightTree == null) {
-
-            if (val <= tempval) {
-                //System.out.println("getting in here1");
-                outOfBalSecond = "left";
-
-            } else {
-                //System.out.println("getting in here2");
-                outOfBalSecond = "right";
-
-            }
-            //  System.out.println(val);
-            //System.out.println(tempval);
-
-            //return the last turn we made
-            //HOW DO WE KNOW WHAT WAS THE LAST TURN?
-
-        }
-
-
-        if (this.leftTree != null && tempval != val)
+        if(this.payload == val && this.leftTree == null)
         {
-            this.leftTree.outOfBalanceSecondarily(tempval);
-           // tempval = this.leftTree.getPayload();
+            //we are looking at THE last tree added
+            //return the last turn we made
+            return lastTurn;
         }
-        if (this.rightTree != null&& tempval != val) {
+        else
+        {
+            //I might have a payload that matches val, or I am still looking for a matching payload
+            //in either case, I am not at THE last leaf added.
 
-            this.rightTree.outOfBalanceSecondarily(tempval);
-           // tempval = this.rightTree.getPayload();
-
+            //keep traversing the tree and ultimately return left or right
+            if(val <= this.payload)
+            {
+                //we would have added it to the left
+                return this.leftTree.outOfBalanceSecondarily(val, "left");
+            }
+            else
+            {
+                return this.rightTree.outOfBalanceSecondarily(val, "right");
+            }
         }
-        //keep traversing the tree and ultimately return left or right
-
-
-            return outOfBalSecond ;
     }
 
     public int depth()
@@ -147,9 +130,18 @@ public class BinaryTree
         return payload;
     }
 
+    public void setLeftTree(BinaryTree leftTree) {
+        this.leftTree = leftTree;
+    }
+
+    public void setRightTree(BinaryTree rightTree) {
+        this.rightTree = rightTree;
+    }
+
     public BinaryTree getLeftTree()
     {
         return leftTree;
+
     }
 
     public BinaryTree getRightTree()
