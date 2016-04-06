@@ -8,31 +8,26 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity
 {
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         BST tree = new BST();
-        String vals = "fbgaa";
+        String vals = "fgh";
         for(int i = 0; i < vals.length(); i++)
         {
             tree.add(vals.charAt(i));
         }
 
-
-
+        if(tree.isOutOfBalance())
+        {
+            System.out.println("Out of balance: " + tree.isOutOfBalance());
+            tree.howAreWeOutOfBalance('h');
+        }
+        tree.rebalance(BSTCore.outOfBalanceInitial, BSTCore.outOfBalanceSecondarily);
         System.out.println("Out of balance: " + tree.isOutOfBalance());
-        tree.howAreWeOutOfBalance('a');
-
-           if (tree.isOutOfBalance())
-           {
-               tree.fix(BST.outOfBalanceInitial, BST.outOfBalanceSecondarily);
-           }
-
-
-       //
         //tree.visitPreOrder();
         //tree.visitPostOrder();
         //tree.visitInOrder();
