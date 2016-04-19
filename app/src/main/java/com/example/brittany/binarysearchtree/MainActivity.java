@@ -14,7 +14,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BST tree = new BST();
+        shuntingYard.postFix("3+4*2/(1-5)^2^3");
+
+
+
+
+      /*  BST tree = new BST();
         String vals = "fgh";
         for(int i = 0; i < vals.length(); i++)
         {
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity
             tree.howAreWeOutOfBalance('h');
         }
         tree.rebalance(BSTCore.outOfBalanceInitial, BSTCore.outOfBalanceSecondarily);
-        System.out.println("Out of balance: " + tree.isOutOfBalance());
+        System.out.println("Out of balance: " + tree.isOutOfBalance()); */
         //tree.visitPreOrder();
         //tree.visitPostOrder();
         //tree.visitInOrder();
