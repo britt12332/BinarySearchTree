@@ -6,9 +6,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-/**
- * Created by brittany on 4/14/2016.
- */
+
 public class shuntingYard {
 
     static Stack<Character> postFix(String problem) {
