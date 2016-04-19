@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         shuntingYard.postFix("3+4*2/(1-5)^2^3");
+        shuntingYard.combine(shuntCore.finalOutStack,shuntCore.finalOpStack);
 
 
 

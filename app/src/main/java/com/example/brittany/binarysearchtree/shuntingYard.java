@@ -11,11 +11,11 @@ import java.util.StringTokenizer;
  */
 public class shuntingYard {
 
-    static String postFix(String problem) {
+    static Stack<Character> postFix(String problem) {
+
         Stack<Character> operatorStack = new Stack<Character>();
         Stack<Character> outputStack = new Stack<Character>();
         Stack<Character> tempOutputStack = new Stack<Character>();
-        LinkedList<Character> answerll = new LinkedList<Character>();
         Stack<Character> garbStack = new Stack<Character>();
 
 
@@ -113,15 +113,21 @@ public class shuntingYard {
                 }
 
 
-                System.out.println("ops" + operatorStack);
-                System.out.println("output" + outputStack);
+             //   System.out.println("ops" + operatorStack);
+              //  System.out.println("output" + outputStack);
+
 
 
             } while (inputST.hasMoreTokens());
 
 
-            System.out.println("opsEND" + operatorStack);
-            System.out.println("outputEND" + outputStack);
+           // System.out.println("opsEND" + operatorStack);
+           // System.out.println("outputEND" + outputStack);
+            shuntCore.finalOpStack = operatorStack;
+           shuntCore.finalOutStack = outputStack;
+
+
+
 
        /* while(!outputStack.isEmpty())
         {
@@ -132,8 +138,22 @@ public class shuntingYard {
         }
 
 
-        return outputStack.toString();
+        return shuntCore.finalOutStack;
+
     }
+
+   static Stack<Character> combine(Stack out, Stack opp)
+   {
+
+
+       while(!opp.isEmpty())
+       {
+           out.push(opp.pop());
+
+       }
+       System.out.println("answer = " + out);
+       return out;
+   }
 }
 
 
